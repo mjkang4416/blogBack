@@ -3,6 +3,8 @@ package com.example.blogback.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "TBL_USER")
 @Getter
@@ -25,6 +27,7 @@ public class UserEntity {
     private String img_url;
     private String intro;
 
-
+    @OneToMany(mappedBy = "userId")
+    private List<LikeEntity> likes;
 
 }
