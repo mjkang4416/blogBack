@@ -27,7 +27,7 @@ public class UserEntity {
     private String img_url;
     private String intro;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user_id")
     private List<LikeEntity> likes;
 
 }
