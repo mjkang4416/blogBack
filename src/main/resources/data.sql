@@ -1,1 +1,1 @@
-select * from TBL_BOOK_LOG;
+select * from USER;
