@@ -10,18 +10,17 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class LikeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeId;
+    private Long like_id;
 
-    @Column(name = "LIKE", nullable = false)
-    private Boolean like;
+    @Column(name = "is_liked", nullable = false)
+    private Boolean is_liked;
 
     @ManyToOne
-    @JoinColumn(name = "USERID", nullable = false)
-    private UserEntity userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user_id;
 
 }

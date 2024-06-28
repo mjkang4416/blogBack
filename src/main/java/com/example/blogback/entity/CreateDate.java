@@ -12,18 +12,18 @@ import java.util.Date;
 @Table(name = "TBL_DATE")
 public class  CreateDate {
     @Id
-    @Column(name = "dateid")
+    @Column(name = "date_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dateid;
+    private Long date_id;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date creat_date;
 
-    @Column(name = "time_recorded", nullable = false)
+    @Column(name = "time_Recorded", nullable = false)
     private Long time_recorded;
 
     @ManyToOne
-    @JoinColumn(name ="userId",nullable = false)
-    private tbl_user userId;
+    @JoinColumn(name ="user_id",nullable = false)
+    private UserEntity userId;
 
 }
