@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 @RequiredArgsConstructor//여기서 생성자 의존성 주입 되는거에여 안되는거 아님 @Autuwired는 없지만 final로 선언돼서 생성자에서 초기화되면서 자동 주입함
 public class UserController {
     public final UserService userService;
