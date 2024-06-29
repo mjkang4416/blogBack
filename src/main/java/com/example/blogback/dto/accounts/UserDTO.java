@@ -10,11 +10,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class UserDTO {
-    private Long user_id;
+    private Long userId;
     private String nickname;
     private String password;
     private String email;
-    private String imgUrl;
+    private String img_url;
     private String intro;
+
+
+
 }
