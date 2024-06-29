@@ -17,8 +17,8 @@ public class FriendsEntity {
     private Long friendsId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userId;
+    @JoinColumn(name = "user_id",nullable = false)
+    private UserEntity user_id;
 
     @ManyToOne
     @JoinColumn(name = "friend_id", nullable = false)

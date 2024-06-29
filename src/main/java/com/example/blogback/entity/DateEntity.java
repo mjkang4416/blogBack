@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "TBL_DATE")
-public class  CreateDate {
+public class DateEntity {
     @Id
     @Column(name = "date_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
