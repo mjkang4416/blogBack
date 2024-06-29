@@ -17,11 +17,11 @@ public class FriendsEntity {
     private Long friendsId;
 
     @ManyToOne
-    @JoinColumn(name = "USERID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userId;
 
     @ManyToOne
-    @JoinColumn(name = "USERID", nullable = false)
+    @JoinColumn(name = "friend_id", nullable = false)
     private UserEntity friends;
 
 }
