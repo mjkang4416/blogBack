@@ -18,10 +18,10 @@ public class FriendsEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
-    private UserEntity user_id;
+    private UserEntity userId;
 
     @ManyToOne
     @JoinColumn(name = "friend_id", nullable = false)
-    private UserEntity userId;
+    private UserEntity friends;
 
 }

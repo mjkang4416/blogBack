@@ -16,18 +16,20 @@ import java.util.List;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userId;
+
+    @Column(nullable = false, unique = true)
+    private String nickname;
+    private String email;
 
     @Column(nullable = false)
-    private String nickname;
     private String password;
-    private String email;
 
     @Column
     private String img_url;
     private String intro;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "userId")
     private List<LikeEntity> likes;
 
 }
