@@ -15,7 +15,7 @@ public class TimerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long timer_id;
 
-    @Column(name = "recod_time", nullable = false)
+    @Column(name = "record_time", nullable = false)
     private Long record_time;
 
     @Column(name = "book_mark", nullable = false)
