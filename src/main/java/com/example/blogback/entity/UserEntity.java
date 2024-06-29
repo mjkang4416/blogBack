@@ -16,7 +16,7 @@ import java.util.List;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
     @Column(nullable = false)
     private String nickname;
@@ -27,7 +27,7 @@ public class UserEntity {
     private String img_url;
     private String intro;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user_id")
     private List<LikeEntity> likes;
 
 }
