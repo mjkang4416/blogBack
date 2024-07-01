@@ -11,9 +11,12 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookDTO {
+public class BookLogDTO {
+    private Long bookLogId;
+    private String content;
+    private String title;
+    private Date update_date;
+    private Date write_date;
+    private Long userId;
     private Long bookId;
-    private String author;
-    private String book_cover;
-    private Date title;
 }
