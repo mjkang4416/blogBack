@@ -1,19 +1,19 @@
-package com.example.blogback.dto.blog;
+package com.example.blogback.dto.timer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookDTO {
+
+public class TimerDTO {
+    private Long timerId;
+    private Long recordTime;
+    private Long bookMark;
     private Long bookId;
-    private String author;
-    private String book_cover;
-    private Date title;
+    private Long userId;
 }

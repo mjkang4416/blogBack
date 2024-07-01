@@ -11,22 +11,21 @@ import lombok.*;
 @Table(name = "TBL_TIMER")
 public class TimerEntity {
     @Id
-    @Column(name = "timer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long timer_id;
+    private Long timerId;
 
-    @Column(name = "recod_time", nullable = false)
-    private Long record_time;
+    @Column(nullable = false)
+    private Long recordTime;
 
-    @Column(name = "book_mark", nullable = false)
-    private Long book_mark;
+    @Column(nullable = false)
+    private Long bookMark;
 
     @ManyToOne
-    @JoinColumn(name ="book_id",nullable = false)
+    @JoinColumn(nullable = false)
     private BookEntity bookId;
 
     @ManyToOne
-    @JoinColumn(name ="user_id",nullable = false)
+    @JoinColumn(nullable = false)
     private UserEntity userId;
 
 }
