@@ -7,8 +7,6 @@ import com.example.blogback.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor//여기서 생성자 의존성 주입 되는거에여 안되는거 아님 @Autuwired는 없지만 final로 선언돼서 생성자에서 초기화되면서 자동 주입함
@@ -24,5 +22,14 @@ public class UserController {
     @PostMapping("/create")
     public UserEntity createUser(@RequestBody UserDTO userDTO) {
         return userService.createUser(userDTO);
+    }
+    @GetMapping("/mypage/{user_id}")
+    public UserEntity getUserMypage(@PathVariable Long user_id) {
+        return userService.getUserByUserId(user_id);
+    }
+    //로그인
+    @PostMapping("/login")
+    public UserEntity login(@RequestBody UserDTO userDTO) {
+        return userService.login(userDTO);
     }
 }
