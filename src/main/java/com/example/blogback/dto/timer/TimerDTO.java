@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class TimerDTO {
-    private Long timer_id;
-    private Long record_time;
-    private Long book_mark;
-    private Long book_id;
-    private Long user_id;
+    private Long timerId;
+    private Long recordTime;
+    private Long bookMark;
+    private Long bookId;
+    private Long userId;
 }
