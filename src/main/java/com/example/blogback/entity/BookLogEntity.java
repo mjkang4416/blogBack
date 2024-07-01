@@ -15,7 +15,7 @@ public class BookLogEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-        private Long b_log_id;
+        private Long bLogId;
 
         private String title;
 
@@ -24,18 +24,18 @@ public class BookLogEntity {
         private Long score;
 
         @Temporal(TemporalType.TIMESTAMP)
-        private Date write_date;
+        private Date writeDate;
 
         @Temporal(TemporalType.TIMESTAMP)
-        private Date update_date;
+        private Date updateDate;
 
 
         @ManyToOne
         @JoinColumn(name = "book_id",nullable = false)
-        private BookEntity book_id;
+        private BookEntity bookId;
 
         @ManyToOne
         @JoinColumn(name = "user_id",nullable = false)
-        private UserEntity user_id;
+        private UserEntity userId;
 
 }
