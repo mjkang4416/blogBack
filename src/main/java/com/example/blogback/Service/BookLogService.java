@@ -11,6 +11,8 @@ import com.example.blogback.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BookLogService {
@@ -19,7 +21,14 @@ public class BookLogService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
 
-    public void BookLogUpdate(BookLogDTO bookLogDTO){
+    //  전체 booklog 띄워주는 화면
+    public List<BookLogEntity> getBookLog(Long userId){
+        return bookLogRepository.findByUserId(UserEntity.builder().userId(userId).build());
+    }
+
+
+    //    bookLog post
+    public void BookLogPost(BookLogDTO bookLogDTO){
         BookLogEntity bookLogEntity = BookLogEntity.builder()
                 .content(bookLogDTO.getContent())
                 .title(bookLogDTO.getTitle())
@@ -31,4 +40,18 @@ public class BookLogService {
 
         bookLogRepository.save(bookLogEntity);
     }
+
+//    책검색
+    public List<BookEntity> SearchBook(String bookName){
+       return bookRepository.findByTitleStartingWith(bookName);
+    }
+
+//    북로그 삭제
+    public void deleteBookLog(Long bookLogId){
+      BookLogEntity bookLogEntityId =  BookLogEntity.builder().bLogId(bookLogId).build();
+      bookLogRepository.delete(bookLogEntityId);
+    }
+
+
+
 }

@@ -23,10 +23,10 @@ public class TimerEntity {
 
     @ManyToOne
     @JoinColumn(name ="book_id",nullable = false)
-    private BookEntity book_id;
+    private BookEntity bookId;
 
     @ManyToOne
     @JoinColumn(name ="user_id",nullable = false)
-    private UserEntity user_id;
+    private UserEntity userId;
 
 }

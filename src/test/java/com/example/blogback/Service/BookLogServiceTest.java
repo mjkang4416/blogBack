@@ -31,8 +31,8 @@ class BookLogServiceTest {
             .build();
 
     @Test
-    public void bookLogInsertTest(){
-        bookLogService.BookLogUpdate(bookLogDTO);
+    public void bookLogInsertTest(BookLogDTO bookLogDTO){
+        bookLogService.BookLogPost(bookLogDTO);
 
     }
 
