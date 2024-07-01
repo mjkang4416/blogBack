@@ -37,4 +37,5 @@ public class BookLogEntity {
         @ManyToOne
         @JoinColumn(name = "user_id",nullable = false)
         private UserEntity userId;
+
 }
