@@ -1,29 +1,66 @@
 package com.example.blogback.config;
 
+import com.example.blogback.Service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
-@EnableWebSecurity //웹 보안 활성화 spring security 이용해서
+@EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-//    securityFilterChain 스프링 시큐리티 설정 파일, 인증 인가 등 엮여있음
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//    전체 요청에 접근할 수 있도록 하는 코드(별도의 인증 없이 모든 서비스 이용할 수 있게)
-        http
-                .csrf(AbstractHttpConfigurer::disable);
-        return http.authorizeHttpRequests(auth->auth.anyRequest().permitAll()).build();
+    private final UserDetailService userDetailService;
 
+    public SecurityConfig(UserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/user/create", "user/login").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .anyRequest().permitAll()
+                )
+                .formLogin(form -> form
+                        .loginPage("/user/login")
+                        .usernameParameter("userId")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/")
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/user/logout")
+                        .invalidateHttpSession(true)
+                );
+
+        return http.build();
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return new ProviderManager(daoAuthenticationProvider);
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return (request, response, auth) -> response.sendRedirect("/");
     }
 }
