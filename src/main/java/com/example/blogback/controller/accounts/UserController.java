@@ -32,9 +32,10 @@ public class UserController {
     }
     //로그인
     @PostMapping("/login")
-    public boolean login(@RequestBody UserDTO userDTO) {
+    public UserEntity login(@RequestBody UserDTO userDTO) {
         return userService.login(userDTO);
     }
+
 
 
 

@@ -36,42 +36,40 @@ public class UserEntity implements UserDetails {
     private String img_url;
     private String intro;
 
-    private String role;
+
 
     @OneToMany(mappedBy = "userId")
     private List<LikeEntity> likes;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(role));
-
-        return roles;
+        return List.of();
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return nickname;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public UserEntity orElseThrow(Class<EntityNotFoundException> entityNotFoundExceptionClass) {

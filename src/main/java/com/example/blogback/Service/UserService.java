@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 
 @Service
 @RequiredArgsConstructor
@@ -31,25 +29,19 @@ public class UserService {
                 .build();
         return userRepository.save(userEntity);
     }
-    public boolean login(UserDTO userDTO) {
+    public UserEntity login(UserDTO userDTO) {
 
         UserEntity userEntity = userRepository.findByNickname(userDTO.getNickname());
 
         if (userEntity != null && passwordEncoder.matches(userDTO.getPassword(), userEntity.getPassword())) {
-            return true;
+            return userEntity;
         }
 
-        return false;
+        return null;
 
     }
 
-    public UserEntity getLoginUserByNickname(String nickname) {
-        if(nickname == null) return null;
 
-        UserEntity userEntity =userRepository.findByNickname(nickname);
-        return userEntity;
-
-    }
     public UserEntity getUserByUserId(Long userId) {
         return userRepository.findByUserId(userId);
     }
