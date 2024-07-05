@@ -31,7 +31,7 @@ public class UserService {
     }
     public UserEntity login(UserDTO userDTO) {
 
-        UserEntity userEntity = userRepository.findByUserId(userDTO.getUserId());
+        UserEntity userEntity = userRepository.findByNickname(userDTO.getNickname());
 
         if (userEntity != null && passwordEncoder.matches(userDTO.getPassword(), userEntity.getPassword())) {
             return userEntity;

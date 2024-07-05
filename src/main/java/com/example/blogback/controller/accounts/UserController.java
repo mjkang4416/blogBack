@@ -5,6 +5,9 @@ import com.example.blogback.Service.UserService;
 import com.example.blogback.dto.accounts.UserDTO;
 import com.example.blogback.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,6 +35,8 @@ public class UserController {
     public UserEntity login(@RequestBody UserDTO userDTO) {
         return userService.login(userDTO);
     }
+
+
 
 
 
