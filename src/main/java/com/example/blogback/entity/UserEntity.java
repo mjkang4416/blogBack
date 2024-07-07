@@ -32,4 +32,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "userId")
     private List<LikeEntity> likes;
 
+    @OneToMany(mappedBy = "userId")
+    private List<FriendsEntity> friends;
+
 }
