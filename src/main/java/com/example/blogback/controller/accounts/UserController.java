@@ -2,6 +2,7 @@ package com.example.blogback.controller.accounts;
 
 
 import com.example.blogback.Service.UserService;
+import com.example.blogback.dto.accounts.MyPageDTO;
 import com.example.blogback.dto.accounts.UserDTO;
 import com.example.blogback.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +17,14 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     public final UserService userService;
 
-    @GetMapping("/mypage/{nickname}")
-    public UserEntity getUserMypage(@PathVariable String nickname) {
-        // 닉네임으로 사용자 정보를 조회하는거ㅣㅁ
-        return userService.getUserByNickname(nickname);
-    }
     //유저 정보 조회할라면 유저가 필요해서 그거 만드는 용이에여 임시일 뿐
     @PostMapping("/create")
     public UserEntity createUser(@RequestBody UserDTO userDTO) {
         return userService.createUser(userDTO);
     }
-    @GetMapping("/mypage/{user_id}")
-    public UserEntity getUserMypage(@PathVariable Long user_id) {
-        return userService.getUserByUserId(user_id);
+    @GetMapping("/mypage")
+    public MyPageDTO getUserMypage(@RequestParam Long userId) {
+        return userService.getMyPage(userId);
     }
     //로그인
     @PostMapping("/login")
