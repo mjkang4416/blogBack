@@ -38,17 +38,7 @@ public class UserService {
                 .build();
         return userRepository.save(userEntity);
     }
-    public UserEntity login(UserDTO userDTO) {
-
-        UserEntity userEntity = userRepository.findByNickname(userDTO.getNickname());
-
-        if (userEntity != null && passwordEncoder.matches(userDTO.getPassword(), userEntity.getPassword())) {
-            return userEntity;
-        }
-
-        return null;
-
-    }
+    
     public MyPageDTO getMyPage(@AuthenticationPrincipal UserEntity userEntity) {
         Long userId =userEntity.getUserId();
         UserEntity user = getUserByUserId(userId);
