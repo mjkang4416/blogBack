@@ -3,7 +3,7 @@ package com.example.blogback.config;
 import com.example.blogback.Service.UserDetailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +11,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -38,13 +38,13 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                //.formLogin(form -> form
-                 //       .loginPage("/user/login")
-                 //       .usernameParameter("userId")
-                 //       .passwordParameter("password")
-                 //       .defaultSuccessUrl("/user/mypage/")
-                  //      .successHandler(authenticationSuccessHandler())
-                //)
+                .formLogin(form -> form
+                        .loginPage("/user/login")
+                        .usernameParameter("nickname")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/user/mypage/")
+                        .successHandler(authenticationSuccessHandler())
+                )
                 .logout(logout -> logout
                         .logoutUrl("/user/logout")
                         .invalidateHttpSession(true)

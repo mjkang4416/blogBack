@@ -1,5 +1,6 @@
 package com.example.blogback.Service;
 
+
 import com.example.blogback.dto.accounts.MyPageDTO;
 import com.example.blogback.dto.accounts.UserDTO;
 import com.example.blogback.entity.BookLogEntity;
@@ -7,6 +8,7 @@ import com.example.blogback.entity.UserEntity;
 import com.example.blogback.repository.BookLogRepository;
 import com.example.blogback.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,19 +49,20 @@ public class UserService {
         return null;
 
     }
-    public MyPageDTO getMyPage(Long userId) {
-        UserEntity userEntity = getUserByUserId(userId);
+    public MyPageDTO getMyPage(@AuthenticationPrincipal UserEntity userEntity) {
+        Long userId =userEntity.getUserId();
+        UserEntity user = getUserByUserId(userId);
 
         List<BookLogEntity> bookLogEntities;
         bookLogEntities = bookLogService.getBookLog(userId);
 
 
         return MyPageDTO.builder()
-                .userId(userEntity.getUserId())
-                .nickname(userEntity.getNickname())
-                .email(userEntity.getEmail())
-                .img_url(userEntity.getImg_url())
-                .intro(userEntity.getIntro())
+                .userId(user.getUserId())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .img_url(user.getImg_url())
+                .intro(user.getIntro())
                 .bookLogs(bookLogEntities)
                 .build();
     }

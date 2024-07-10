@@ -2,13 +2,14 @@ package com.example.blogback.controller.accounts;
 
 
 import com.example.blogback.Service.UserService;
+
 import com.example.blogback.dto.accounts.MyPageDTO;
 import com.example.blogback.dto.accounts.UserDTO;
 import com.example.blogback.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.ui.Model;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,13 +24,13 @@ public class UserController {
         return userService.createUser(userDTO);
     }
     @GetMapping("/mypage")
-    public MyPageDTO getUserMypage(@RequestParam Long userId) {
-        return userService.getMyPage(userId);
+    public MyPageDTO getUserMypage(@AuthenticationPrincipal UserEntity userEntity) {
+        return userService.getMyPage(userEntity);
     }
     //로그인
     @PostMapping("/login")
-    public UserEntity login(@RequestBody UserDTO userDTO) {
-        return userService.login(userDTO);
+    public String login(@RequestParam String nickname, @RequestParam String password) {
+        return "성공";
     }
 
 
