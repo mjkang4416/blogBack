@@ -9,9 +9,11 @@ import com.example.blogback.repository.BookLogRepository;
 import com.example.blogback.repository.FriendsRepository;
 import com.example.blogback.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +43,6 @@ public class FriendsService {
         List<BookLogEntity> bookLogEntities;
         bookLogEntities = bookLogService.getBookLog(userId);
 
-
         return FriendPageDTO.builder()
                 .userId(userEntity.getUserId())
                 .nickname(userEntity.getNickname())
@@ -50,6 +51,17 @@ public class FriendsService {
                 .intro(userEntity.getIntro())
                 .bookLogs(bookLogEntities)
                 .build();
+    }
+    public List<BookLogEntity> getFriendsBookLogs(@AuthenticationPrincipal UserEntity userId) {
+        List<FriendsEntity> friendsList = friendsRepository.findByUserId(userId);
+
+        List<UserEntity> friendsUserIds = friendsList.stream()
+                .map(FriendsEntity::getFriends)
+                .toList();
+
+        return friendsUserIds.stream()
+                .flatMap(friend -> bookLogRepository.findByUserId(friend).stream())
+                .toList();
     }
     public UserEntity getFriendByUserId(Long userId) {
         return userRepository.findByUserId(userId);
