@@ -21,9 +21,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final UserDetailService userDetailService;
 
-    private final ObjectMapper objectMapper;
 
 
     @Bean
@@ -34,21 +32,26 @@ public class SecurityConfig {
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/create", "user/login", "user/mypage/").permitAll()
+                        .requestMatchers("/user/create", "/user/login", "/user/mypage", "/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/user/login")
                         .usernameParameter("nickname")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/user/mypage/")
-                        .successHandler(authenticationSuccessHandler())
+                                .successForwardUrl("/user/mypage")
+                                .failureForwardUrl("/user/create")
+
+                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/user/logout")
                         .invalidateHttpSession(true)
-                );
-
+                )
+                .sessionManagement((auth)->auth
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(true));
         return http.build();
     }
 
@@ -56,6 +59,8 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+public final UserDetailService userDetailService;
 
     @Bean
     public AuthenticationManager authenticationManager() {
