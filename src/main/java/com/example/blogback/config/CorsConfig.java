@@ -9,6 +9,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,23 +19,17 @@ public class CorsConfig {
     public static CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        //리소스를 허용할 URL 지정
-        ArrayList<String> allowedOriginPatterns = new ArrayList<>();
-        allowedOriginPatterns.add("http://localhost:8090");
-        configuration.setAllowedOrigins(allowedOriginPatterns);
+        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:54086"));
 
-        //허용하는 HTTP METHOD 지정
-        ArrayList<String> allowedHttpMethods = new ArrayList<>();
-        allowedHttpMethods.add("GET");
-        allowedHttpMethods.add("POST");
-        allowedHttpMethods.add("PUT");
-        allowedHttpMethods.add("DELETE");
-        configuration.setAllowedMethods(allowedHttpMethods);
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
-        configuration.setAllowedHeaders(Collections.singletonList("*"));
-       configuration.setAllowedHeaders(List.of(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE));
+        configuration.setAllowedHeaders(Arrays.asList(
+                HttpHeaders.AUTHORIZATION,
+                HttpHeaders.CONTENT_TYPE,
+                HttpHeaders.ACCEPT
+        ));
 
-        //인증, 인가를 위한 credentials 를 TRUE로 설정
+
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
